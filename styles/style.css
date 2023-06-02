@@ -23,10 +23,18 @@ body {
 
 section { 
 	height: 100vh; 
-	width: calc(100%-32px);
 	padding: 32px;
 }
 
+h1 {
+    font-size: 40px;
+    animation: fadeIn 5s;
+    -webkit-animation: fadeIn 5s;
+    -moz-animation: fadeIn 5s;
+    -o-animation: fadeIn 5s;
+    -ms-animation: fadeIn 5s;
+  }
+  
 .wrapper {
     display: flex;
     flex-direction: column;
@@ -37,7 +45,32 @@ section {
     height: auto;
 }
 
-.text-scroll {
+.scroll-section {
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	align-items: center;
+	opacity: 0;
+	transition: all 2s;
+	
+}
+.show {
+	opacity: 1;
+}
+
+@media(prefers-reduced-motion){
+	.scroll-section{
+		transition: none;
+	}
+}
+
+.social-tiles {
+	display: flex;
+	
+
+}
+
+/* .text-scroll {
   opacity: 0;
   transform: translate(0, 10vh);
   transition: all 4s;
@@ -45,8 +78,11 @@ section {
 .text-scroll.visible {
   opacity: 1;
   transform: translate(0, 0);
-}
+} */
 
+.text-box {
+	padding: 100px;
+}
 
 .logo {
     width: 198px;
@@ -59,22 +95,18 @@ section {
     -o-animation: fadeIn 5s;
     -ms-animation: fadeIn 5s;
 }
-h1 {
-    font-size: 40px;
-    margin-top: 150px;
-    animation: fadeIn 5s;
-    -webkit-animation: fadeIn 5s;
-    -moz-animation: fadeIn 5s;
-    -o-animation: fadeIn 5s;
-    -ms-animation: fadeIn 5s;
-  }
-#topfold-text {
+
+#headline {
+	margin-top: 150px;
+}
+
+/* #topfold-text {
   animation: fadeIn 5s;
   -webkit-animation: fadeIn 5s;
   -moz-animation: fadeIn 5s;
   -o-animation: fadeIn 5s;
   -ms-animation: fadeIn 5s;
-}
+} */
 @keyframes fadeIn {
     0% { opacity: 0;}
     100% { opacity: 1;}
