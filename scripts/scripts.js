@@ -159,13 +159,13 @@ class Effect {
                 element: document.getElementById('headline').getBoundingClientRect(),
                 x: 0,
                 y: 0,
-                radius: 200,
+                radius: 500,
             },
             {
                 element: document.getElementById('topfold-text').getBoundingClientRect(),
                 x: 0,
                 y: 0,
-                radius: 200,
+                radius: 500,
             }
         ];
 

@@ -44,6 +44,7 @@ section {
 h1 {
     font-size: 40px;
     animation: fadeIn 5s;
+    width: 60%;
     -webkit-animation: fadeIn 5s;
     -moz-animation: fadeIn 5s;
     -o-animation: fadeIn 5s;
@@ -87,7 +88,8 @@ h1 {
 }
 
 .text-box {
-	  padding: 100px;
+	  padding-top: 75px;
+      width: 60%;
 }
 
 .logo {
