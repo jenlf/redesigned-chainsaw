@@ -166,6 +166,36 @@ class Effect {
                 x: 0,
                 y: 0,
                 radius: 500,
+            },
+            {
+              element: document.getElementById('headine-me').getBoundingClientRect(),
+              x: 0,
+              y: 0,
+              radius: 500,
+            },
+            {
+              element: document.getElementById('mid-text').getBoundingClientRect(),
+              x: 0,
+              y: 0,
+              radius: 500,
+            },
+            {
+              element: document.getElementById('headline-thanks').getBoundingClientRect(),
+              x: 0,
+              y: 0,
+              radius: 500,
+            },
+            {
+              element: document.getElementById('footer-text').getBoundingClientRect(),
+              x: 0,
+              y: 0,
+              radius: 500,
+            },
+            {
+              element: document.getElementById('social').getBoundingClientRect(),
+              x: 0,
+              y: 0,
+              radius: 200,
             }
         ];
 
@@ -185,6 +215,11 @@ class Effect {
             this.elementsArray[0].element = document.getElementById('logo').getBoundingClientRect();
             this.elementsArray[1].element = document.getElementById('headline').getBoundingClientRect();
             this.elementsArray[2].element = document.getElementById('topfold-text').getBoundingClientRect();
+            this.elementsArray[3].element = document.getElementById('headine-me').getBoundingClientRect();
+            this.elementsArray[4].element = document.getElementById('mid-text').getBoundingClientRect();
+            this.elementsArray[5].element = document.getElementById('headline-thanks').getBoundingClientRect();
+            this.elementsArray[6].element = document.getElementById('footer-text').getBoundingClientRect();
+            this.elementsArray[7].element = document.getElementById('social').getBoundingClientRect();
             //console.log(e);
             //console.log(this.element1.x);
             this.scrolling = true;
@@ -277,6 +312,11 @@ class Effect {
         this.elementsArray[0].element = document.getElementById('logo').getBoundingClientRect();
         this.elementsArray[1].element = document.getElementById('headline').getBoundingClientRect();
         this.elementsArray[2].element = document.getElementById('topfold-text').getBoundingClientRect();
+        this.elementsArray[3].element = document.getElementById('headine-me').getBoundingClientRect();
+        this.elementsArray[4].element = document.getElementById('mid-text').getBoundingClientRect();
+        this.elementsArray[5].element = document.getElementById('headline-thanks').getBoundingClientRect();
+        this.elementsArray[6].element = document.getElementById('footer-text').getBoundingClientRect();
+        this.elementsArray[7].element = document.getElementById('social').getBoundingClientRect();
         //recalc gradient for particles - upper eft to ower right AFTER window resize
         const gradient = this.context.createLinearGradient(0,0,width,height);
         gradient.addColorStop(0, 'black'); //adding gradient points
