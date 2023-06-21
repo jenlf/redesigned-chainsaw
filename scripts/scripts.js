@@ -89,31 +89,40 @@ class Particle {
             }
 
             //collision detection -- use the element properties not obj properties for initial detection
-            if (this.x - this.radius < this.effect.elementsArray[0].element.x + this.effect.elementsArray[0].element.width &&
-                this.x - this.radius + this.width > this.effect.elementsArray[0].element.x &&
-                this.y - this.radius < this.effect.elementsArray[0].element.y + this.effect.elementsArray[0].element.height && 
-                this.height + this.y - this.radius > this.effect.elementsArray[0].element.y){
-                    //collision detected
-                    this.vy *= -1;
-                    this.vx *= -1;
-                } 
-            if (this.x - this.radius < this.effect.elementsArray[1].element.x + this.effect.elementsArray[1].element.width &&
-                this.x - this.radius + this.width > this.effect.elementsArray[1].element.x &&
-                this.y - this.radius < this.effect.elementsArray[1].element.y + this.effect.elementsArray[1].element.height && 
-                this.height + this.y - this.radius > this.effect.elementsArray[1].element.y){
-                    //collision detected
-                    this.vy *= -1;
-                    this.vx *= -1;
-                } 
-            if (this.x - this.radius < this.effect.elementsArray[2].element.x + this.effect.elementsArray[2].element.width &&
-                this.x - this.radius + this.width > this.effect.elementsArray[2].element.x &&
-                this.y - this.radius < this.effect.elementsArray[2].element.y + this.effect.elementsArray[2].element.height && 
-                this.height + this.y - this.radius > this.effect.elementsArray[2].element.y){
-                    //collision detected
-                    this.vy *= -1;
-                    this.vx *= -1;
-                } 
-        //}
+            for (let j = 0; j < effect.elementsArray.length; j++) {
+                if (this.x - this.radius < this.effect.elementsArray[j].element.x + this.effect.elementsArray[j].element.width &&
+                    this.x - this.radius + this.width > this.effect.elementsArray[j].element.x &&
+                    this.y - this.radius < this.effect.elementsArray[j].element.y + this.effect.elementsArray[j].element.height && 
+                    this.height + this.y - this.radius > this.effect.elementsArray[j].element.y){
+                        //collision detected
+                        this.vy *= -1;
+                        this.vx *= -1;
+                    }
+            }
+            // if (this.x - this.radius < this.effect.elementsArray[0].element.x + this.effect.elementsArray[0].element.width &&
+            //     this.x - this.radius + this.width > this.effect.elementsArray[0].element.x &&
+            //     this.y - this.radius < this.effect.elementsArray[0].element.y + this.effect.elementsArray[0].element.height && 
+            //     this.height + this.y - this.radius > this.effect.elementsArray[0].element.y){
+            //         //collision detected
+            //         this.vy *= -1;
+            //         this.vx *= -1;
+            //     } 
+            // if (this.x - this.radius < this.effect.elementsArray[1].element.x + this.effect.elementsArray[1].element.width &&
+            //     this.x - this.radius + this.width > this.effect.elementsArray[1].element.x &&
+            //     this.y - this.radius < this.effect.elementsArray[1].element.y + this.effect.elementsArray[1].element.height && 
+            //     this.height + this.y - this.radius > this.effect.elementsArray[1].element.y){
+            //         //collision detected
+            //         this.vy *= -1;
+            //         this.vx *= -1;
+            //     } 
+            // if (this.x - this.radius < this.effect.elementsArray[2].element.x + this.effect.elementsArray[2].element.width &&
+            //     this.x - this.radius + this.width > this.effect.elementsArray[2].element.x &&
+            //     this.y - this.radius < this.effect.elementsArray[2].element.y + this.effect.elementsArray[2].element.height && 
+            //     this.height + this.y - this.radius > this.effect.elementsArray[2].element.y){
+            //         //collision detected
+            //         this.vy *= -1;
+            //         this.vx *= -1;
+            //     } 
     }
 
     //this method resets the position of the particles if window is resized
@@ -159,37 +168,37 @@ class Effect {
                 element: document.getElementById('headline').getBoundingClientRect(),
                 x: 0,
                 y: 0,
-                radius: 500,
+                radius: 450,
             },
             {
                 element: document.getElementById('topfold-text').getBoundingClientRect(),
                 x: 0,
                 y: 0,
-                radius: 500,
+                radius: 450,
             },
             {
-              element: document.getElementById('headine-me').getBoundingClientRect(),
+              element: document.getElementById('headline-me').getBoundingClientRect(),
               x: 0,
               y: 0,
-              radius: 500,
+              radius: 300,
             },
             {
               element: document.getElementById('mid-text').getBoundingClientRect(),
               x: 0,
               y: 0,
-              radius: 500,
+              radius: 450,
             },
             {
               element: document.getElementById('headline-thanks').getBoundingClientRect(),
               x: 0,
               y: 0,
-              radius: 500,
+              radius: 300,
             },
             {
               element: document.getElementById('footer-text').getBoundingClientRect(),
               x: 0,
               y: 0,
-              radius: 500,
+              radius: 450,
             },
             {
               element: document.getElementById('social').getBoundingClientRect(),
@@ -215,7 +224,7 @@ class Effect {
             this.elementsArray[0].element = document.getElementById('logo').getBoundingClientRect();
             this.elementsArray[1].element = document.getElementById('headline').getBoundingClientRect();
             this.elementsArray[2].element = document.getElementById('topfold-text').getBoundingClientRect();
-            this.elementsArray[3].element = document.getElementById('headine-me').getBoundingClientRect();
+            this.elementsArray[3].element = document.getElementById('headline-me').getBoundingClientRect();
             this.elementsArray[4].element = document.getElementById('mid-text').getBoundingClientRect();
             this.elementsArray[5].element = document.getElementById('headline-thanks').getBoundingClientRect();
             this.elementsArray[6].element = document.getElementById('footer-text').getBoundingClientRect();
@@ -223,14 +232,18 @@ class Effect {
             //console.log(e);
             //console.log(this.element1.x);
             this.scrolling = true;
-            this.elementsArray[0].x = this.elementsArray[0].element.left;
-            this.elementsArray[0].y = this.elementsArray[0].element.top;
+            for(let i = 0; i < effect.elementsArray.length; i++) {
+                this.elementsArray[i].x = this.elementsArray[i].element.left;
+                this.elementsArray[i].y = this.elementsArray[i].element.top;
+            }
+            // this.elementsArray[0].x = this.elementsArray[0].element.left;
+            // this.elementsArray[0].y = this.elementsArray[0].element.top;
 
-            this.elementsArray[1].x = this.elementsArray[1].element.left;
-            this.elementsArray[1].y = this.elementsArray[1].element.top;
+            // this.elementsArray[1].x = this.elementsArray[1].element.left;
+            // this.elementsArray[1].y = this.elementsArray[1].element.top;
 
-            this.elementsArray[2].x = this.elementsArray[2].element.left;
-            this.elementsArray[2].y = this.elementsArray[2].element.top;
+            // this.elementsArray[2].x = this.elementsArray[2].element.left;
+            // this.elementsArray[2].y = this.elementsArray[2].element.top;
         });
 
         window.addEventListener('scrollend', e => {
@@ -312,7 +325,7 @@ class Effect {
         this.elementsArray[0].element = document.getElementById('logo').getBoundingClientRect();
         this.elementsArray[1].element = document.getElementById('headline').getBoundingClientRect();
         this.elementsArray[2].element = document.getElementById('topfold-text').getBoundingClientRect();
-        this.elementsArray[3].element = document.getElementById('headine-me').getBoundingClientRect();
+        this.elementsArray[3].element = document.getElementById('headline-me').getBoundingClientRect();
         this.elementsArray[4].element = document.getElementById('mid-text').getBoundingClientRect();
         this.elementsArray[5].element = document.getElementById('headline-thanks').getBoundingClientRect();
         this.elementsArray[6].element = document.getElementById('footer-text').getBoundingClientRect();
