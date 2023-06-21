@@ -19,6 +19,8 @@ class Particle {
         this.effect = effect;
         this.radius = Math.floor(Math.random() * 7 + 1); //using math floor makes nice integers
         this.x = this.radius + Math.random() * (this.effect.width - this.radius * 2); //to keep them from going outside of the screen
+        //this.x = this.effect.elementsArray[1].x + this.effect.elementsArray[1].element.width * 1.5;
+        //console.log(this.effect.elementsArray[1].width);
         //this.y = this.radius + Math.random() * (this.effect.height - this.radius * 2);
         this.y = -this.radius - Math.random() * this.effect.height * 0.7;
         this.vx = Math.random() * 1 - 0.5; //random speeds between values
@@ -130,6 +132,19 @@ class Particle {
     reset(){
         this.x = this.radius + Math.random() * (this.effect.width - this.radius * 2); //to keep them from going outside of the screen
         this.y = this.radius + Math.random() * (this.effect.height - this.radius * 2);
+        //checks for collision on page resize and resets the particles if they are under and element
+        for (let j = 0; j < effect.elementsArray.length; j++) {
+            if (this.x - this.radius < this.effect.elementsArray[j].element.x + this.effect.elementsArray[j].element.width &&
+                this.x - this.radius + this.width > this.effect.elementsArray[j].element.x &&
+                this.y - this.radius < this.effect.elementsArray[j].element.y + this.effect.elementsArray[j].element.height && 
+                this.height + this.y - this.radius > this.effect.elementsArray[j].element.y){
+                    //collision detected
+                    this.y = this.effect.elementsArray[j].element.y - this.radius;
+                    this.x = this.effect.elementsArray[j].element.x - this.radius;
+                }
+        }
+
+        
     }
 }
 
@@ -140,9 +155,7 @@ class Effect {
         this.context = context;
         this.width = this.canvas.width;
         this.height = this.canvas.height;
-        this.particles = [];
-        this.numberOfParticles = 100;
-        this.createParticles(); //creates the particles when Effect is instantiated
+       
         //this.element1 = document.getElementById('logo').getBoundingClientRect(); //this first html element on the page to collide with
         //this.element2 = document.getElementById('headline').getBoundingClientRect();
         //this.element3 = document.getElementById('topfold-text').getBoundingClientRect();
@@ -207,12 +220,15 @@ class Effect {
               radius: 200,
             }
         ];
-
+        this.particles = [];
+        this.numberOfParticles = 100;
+        this.createParticles(); //creates the particles when Effect is instantiated
         window.addEventListener('keydown', e => {
             if (e.key === 'd'){
                 this.debug = !this.debug; //switch to opposite
             }
         })
+
         //this adds the listener for when the user resizes the window
         //event for resizing, e will point back to effect obj
         window.addEventListener('resize', e => {
