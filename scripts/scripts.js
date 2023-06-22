@@ -48,21 +48,14 @@ window.addEventListener('load', function(){
         }
 
         draw(context){
-            // for (let i = 0; i < this.isCollided.length; i++)
-            // {
-            //     if (this.isCollided[i]){
-            //         return;
-            //     }
-            // }
             context.beginPath();
             context.arc(this.x, this.y, this.radius, 0, Math.PI * 2); //make a circle
             //need to fill or outline w stroke
             context.fill();
-            //context.stroke(); //no stroke improves performance
             //draw rect for particles in debug mode so we can see what is happening
-            if (this.effect.debug){
-                context.strokeRect(this.x - this.radius, this.y - this.radius, this.radius * 2, this.radius * 2); //this aligns the boxes correctly over circles
-            }
+            // if (this.effect.debug){
+            //     context.strokeRect(this.x - this.radius, this.y - this.radius, this.radius * 2, this.radius * 2); //this aligns the boxes correctly over circles
+            // }
         }
 
         //define particle motion and behaviour
@@ -117,11 +110,8 @@ window.addEventListener('load', function(){
                     this.y - this.radius < this.effect.elementsArray[j].element.y + this.effect.elementsArray[j].element.height && 
                     this.height + this.y - this.radius > this.effect.elementsArray[j].element.y){
                         //collision detected
-                       
                         this.vy *= -1;
                         this.vx *= -1;
-                          
-                        
                     } 
             }
 
@@ -169,13 +159,13 @@ window.addEventListener('load', function(){
                     element: document.getElementById('headline').getBoundingClientRect(),
                     x: 0,
                     y: 0,
-                    radius: 450,
+                    radius: 500,
                 },
                 {
                     element: document.getElementById('topfold-text').getBoundingClientRect(),
                     x: 0,
                     y: 0,
-                    radius: 450,
+                    radius: 500,
                 },
                 {
                     element: document.getElementById('headline-me').getBoundingClientRect(),
@@ -187,7 +177,13 @@ window.addEventListener('load', function(){
                     element: document.getElementById('mid-text').getBoundingClientRect(),
                     x: 0,
                     y: 0,
-                    radius: 450,
+                    radius: 500,
+                },
+                {
+                    element: document.getElementById('selfie').getBoundingClientRect(),
+                    x: 0,
+                    y: 0,
+                    radius: 300,
                 },
                 {
                     element: document.getElementById('headline-thanks').getBoundingClientRect(),
@@ -199,7 +195,7 @@ window.addEventListener('load', function(){
                     element: document.getElementById('footer-text').getBoundingClientRect(),
                     x: 0,
                     y: 0,
-                    radius: 450,
+                    radius: 500,
                 },
                 {
                     element: document.getElementById('social').getBoundingClientRect(),
@@ -222,7 +218,6 @@ window.addEventListener('load', function(){
             //this adds the listener for when the user resizes the window
             //event for resizing, e will point back to effect obj
             window.addEventListener('resize', e => {
-                //console.log(e.target.window.innerWidth);
                 this.resize(e.target.window.innerWidth, e.target.window.innerHeight); //pass the window width and height to resize func
             });
 
@@ -232,11 +227,11 @@ window.addEventListener('load', function(){
                 this.elementsArray[2].element = document.getElementById('topfold-text').getBoundingClientRect();
                 this.elementsArray[3].element = document.getElementById('headline-me').getBoundingClientRect();
                 this.elementsArray[4].element = document.getElementById('mid-text').getBoundingClientRect();
-                this.elementsArray[5].element = document.getElementById('headline-thanks').getBoundingClientRect();
-                this.elementsArray[6].element = document.getElementById('footer-text').getBoundingClientRect();
-                this.elementsArray[7].element = document.getElementById('social').getBoundingClientRect();
-                //console.log(e);
-                //console.log(this.element1.x);
+                this.elementsArray[5].element = document.getElementById('selfie').getBoundingClientRect();
+                this.elementsArray[6].element = document.getElementById('headline-thanks').getBoundingClientRect();
+                this.elementsArray[7].element = document.getElementById('footer-text').getBoundingClientRect();
+                this.elementsArray[8].element = document.getElementById('social').getBoundingClientRect();
+
                 this.scrolling = true;
                 for(let i = 0; i < effect.elementsArray.length; i++) {
                     this.elementsArray[i].x = this.elementsArray[i].element.left;
@@ -308,9 +303,10 @@ window.addEventListener('load', function(){
             this.elementsArray[2].element = document.getElementById('topfold-text').getBoundingClientRect();
             this.elementsArray[3].element = document.getElementById('headline-me').getBoundingClientRect();
             this.elementsArray[4].element = document.getElementById('mid-text').getBoundingClientRect();
-            this.elementsArray[5].element = document.getElementById('headline-thanks').getBoundingClientRect();
-            this.elementsArray[6].element = document.getElementById('footer-text').getBoundingClientRect();
-            this.elementsArray[7].element = document.getElementById('social').getBoundingClientRect();
+            this.elementsArray[5].element = document.getElementById('selfie').getBoundingClientRect();
+            this.elementsArray[6].element = document.getElementById('headline-thanks').getBoundingClientRect();
+            this.elementsArray[7].element = document.getElementById('footer-text').getBoundingClientRect();
+            this.elementsArray[8].element = document.getElementById('social').getBoundingClientRect();
             //recalc gradient for particles - upper eft to ower right AFTER window resize
             const gradient = this.context.createLinearGradient(0,0,width,height);
             gradient.addColorStop(0, 'black'); //adding gradient points
