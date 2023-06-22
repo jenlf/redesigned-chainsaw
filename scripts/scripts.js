@@ -31,11 +31,29 @@ window.addEventListener('load', function(){
             this.friction = 0.95; //this is an opposing force that will slow down the push
             this.width = this.radius * 2;
             this.height = this.radius * 2;
+            this.isCollided = [false, false, false, false, false, false, false, false];
 
-            
+            for (let j = 0; j < effect.elementsArray.length; j++) {
+                if (this.x - this.radius < this.effect.elementsArray[j].element.x + this.effect.elementsArray[j].element.width &&
+                    this.x - this.radius + this.width > this.effect.elementsArray[j].element.x &&
+                    this.y - this.radius < this.effect.elementsArray[j].element.y + this.effect.elementsArray[j].element.height && 
+                    this.height + this.y - this.radius > this.effect.elementsArray[j].element.y){
+                        //collision detected
+                        
+                        this.y = this.effect.elementsArray[j].element.y - this.radius;
+                        this.x = this.effect.elementsArray[j].element.x - this.radius;
+                        
+                    }
+                }
         }
 
         draw(context){
+            // for (let i = 0; i < this.isCollided.length; i++)
+            // {
+            //     if (this.isCollided[i]){
+            //         return;
+            //     }
+            // }
             context.beginPath();
             context.arc(this.x, this.y, this.radius, 0, Math.PI * 2); //make a circle
             //need to fill or outline w stroke
@@ -99,18 +117,12 @@ window.addEventListener('load', function(){
                     this.y - this.radius < this.effect.elementsArray[j].element.y + this.effect.elementsArray[j].element.height && 
                     this.height + this.y - this.radius > this.effect.elementsArray[j].element.y){
                         //collision detected
-                        if(this.effect.initialLoad){
-                            this.y = this.effect.elementsArray[j].element.y - this.radius;
-                            this.x = this.effect.elementsArray[j].element.x - this.radius;
-                            this.effect.initialLoad = false;
-                        } else {
-                            this.vy *= -1;
-                            this.vx *= -1;
-                        }
+                       
+                        this.vy *= -1;
+                        this.vx *= -1;
+                          
                         
-                        
-                        
-                    }
+                    } 
             }
 
         }
@@ -196,6 +208,7 @@ window.addEventListener('load', function(){
                     radius: 200,
                 }
             ];
+            console.log(this.elementsArray);
             this.particles = [];
             this.numberOfParticles = 100;
             this.createParticles(); //creates the particles when Effect is instantiated
