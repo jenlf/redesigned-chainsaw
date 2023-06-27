@@ -1,37 +1,30 @@
 window.addEventListener('load', function(){
-    //setup
     const canvas = document.getElementById('canvas1');
-    const ctx = canvas.getContext('2d'); //gets CanvasRenderingContext2D for drawing surface
+    const ctx = canvas.getContext('2d');
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
 
-    //create a gradient for particles - upper eft to ower right
     const gradient = ctx.createLinearGradient(0,0,0, canvas.height);
-    gradient.addColorStop(0, 'black'); //adding gradient points
+    gradient.addColorStop(0, 'black'); 
     gradient.addColorStop(0.5, 'black');
     gradient.addColorStop(1, 'grey');
     ctx.fillStyle = gradient; 
-    ctx.strokeStyle = 'black'; //set stroke for line connection since default is black
+    ctx.strokeStyle = 'black'; 
 
     //create the particles
     class Particle {
         constructor(effect){
             this.effect = effect;
-            this.radius = Math.floor(Math.random() * 7 + 1); //using math floor makes nice integers
-            this.x = this.radius + Math.random() * (this.effect.width - this.radius * 2); //to keep them from going outside of the screen
-            //this.x = this.effect.elementsArray[1].x + this.effect.elementsArray[1].element.width * 1.5;
-            //console.log(this.effect.elementsArray[1].width);
+            this.radius = Math.floor(Math.random() * 7 + 1);
+            this.x = this.radius + Math.random() * (this.effect.width - this.radius * 2);
             this.y = this.radius + Math.random() * (this.effect.height - this.radius * 2);
-            //this.y = -this.radius - Math.random() * this.effect.height * 0.7;
-            this.vx = Math.random() * 1 - 0.5; //random speeds between values
+            this.vx = Math.random() * 1 - 0.5;
             this.vy = Math.random() * 1 - 0.5;
-            this.pushX = 0; //used for speed particles move closer/further from mouse
+            this.pushX = 0;
             this.pushY = 0;
-            //adjusting friction num will adjust speed, must be less than 1
-            this.friction = 0.95; //this is an opposing force that will slow down the push
+            this.friction = 0.95;
             this.width = this.radius * 2;
             this.height = this.radius * 2;
-            //this.isCollided = [false, false, false, false, false, false, false, false];
 
             for (let j = 0; j < effect.elementsArray.length; j++) {
                 if (this.x - this.radius < this.effect.elementsArray[j].element.x + this.effect.elementsArray[j].element.width &&
@@ -45,7 +38,6 @@ window.addEventListener('load', function(){
                         
                     }
                 }
-                //console.log(this.effect.elementsArray[0].element);
         }
 
         draw(context){
@@ -55,28 +47,20 @@ window.addEventListener('load', function(){
                 return;
             }
             context.beginPath();
-            context.arc(this.x, this.y, this.radius, 0, Math.PI * 2); //make a circle
-            //need to fill or outline w stroke
+            context.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
             context.fill();
-            //draw rect for particles in debug mode so we can see what is happening
-            // if (this.effect.debug){
-            //     context.strokeRect(this.x - this.radius, this.y - this.radius, this.radius * 2, this.radius * 2); //this aligns the boxes correctly over circles
-            // }
         }
 
         //define particle motion and behaviour
         update(){
             if (this.effect.scrolling){
                 for (let i = 0; i < effect.elementsArray.length; i++){
-                    //calc distance between particle & mouse also using pythag theorem
                     let dx = this.x - (this.effect.elementsArray[i].x + this.effect.elementsArray[i].element.width/2);
                     let dy = this.y - (this.effect.elementsArray[i].y + this.effect.elementsArray[i].element.height/2);
                     let distance = Math.hypot(dx, dy);
-                    //set particles to move fast inside mouse rasius, slower outside
                     let force = this.effect.elementsArray[i].radius / distance;
-                    //if less than mouse radius calc angle between to know which way to push particle
+
                     if (distance < this.effect.elementsArray[i].radius){
-                        //atan2 gives coutnerclock angle 
                         let angle = Math.atan2(dy, dx);
                         //push in correct direction by increasing by sin and cos 
                         this.pushX += Math.cos(angle) * force;
@@ -86,13 +70,9 @@ window.addEventListener('load', function(){
                 
             }
 
-            //adding the friction reduces the push by 5% per ea animation frame
-            //bounce force will then take effect again
-            //order matters - moving this code up ensures we can't push particles out of canvas
             this.x += (this.pushX *= this.friction) + this.vx;
             this.y += (this.pushY *= this.friction) + this.vy;
 
-            //if horizontal position is less than radius (touching left) cannot go furhter left, then it's set back and vx is flipped
             if (this.x < this.radius){
                 this.x = this.radius;
                 this.vx *= -1;
@@ -100,7 +80,7 @@ window.addEventListener('load', function(){
                 this.x = this.effect.width - this.radius;
                 this.vx *= -1;
             }
-            //then same for height
+
             if (this.y < this.radius){
                 this.y = this.radius;
                 this.vy *= -1;
@@ -109,7 +89,7 @@ window.addEventListener('load', function(){
                 this.vy *= -1;
             }
 
-            //collision detection -- use the element properties not obj properties for initial detection
+            //collision detection again
             for (let j = 0; j < effect.elementsArray.length; j++) {
                 if (this.x - this.radius < this.effect.elementsArray[j].element.x + this.effect.elementsArray[j].element.width &&
                     this.x - this.radius + this.width > this.effect.elementsArray[j].element.x &&
@@ -123,12 +103,10 @@ window.addEventListener('load', function(){
 
         }
 
-        //this method resets the position of the particles if window is resized
-        //this ensures that if it is smaller we dont lose particles
         reset(){
-            this.x = this.radius + Math.random() * (this.effect.width - this.radius * 2); //to keep them from going outside of the screen
+            this.x = this.radius + Math.random() * (this.effect.width - this.radius * 2); 
             this.y = this.radius + Math.random() * (this.effect.height - this.radius * 2);
-            //checks for collision on page resize and resets the particles if they are under and element
+
             for (let j = 0; j < effect.elementsArray.length; j++) {
                 if (this.x - this.radius < this.effect.elementsArray[j].element.x + this.effect.elementsArray[j].element.width &&
                     this.x - this.radius + this.width > this.effect.elementsArray[j].element.x &&
@@ -210,7 +188,7 @@ window.addEventListener('load', function(){
                     radius: 200,
                 }
             ];
-            //console.log(this.elementsArray);
+
             this.particles = [];
             if(canvas.width < 800){
                 this.numberOfParticles = 20;
@@ -219,18 +197,10 @@ window.addEventListener('load', function(){
                 this.numberOfParticles = 50;
             }
             
-            this.createParticles(); //creates the particles when Effect is instantiated
+            this.createParticles();
 
-            window.addEventListener('keydown', e => {
-                if (e.key === 'd'){
-                    this.debug = !this.debug; //switch to opposite
-                }
-            })
-
-            //this adds the listener for when the user resizes the window
-            //event for resizing, e will point back to effect obj
             window.addEventListener('resize', e => {
-                this.resize(e.target.window.innerWidth, e.target.window.innerHeight); //pass the window width and height to resize func
+                this.resize(e.target.window.innerWidth, e.target.window.innerHeight);
             });
 
             window.addEventListener('scroll', e => {
@@ -253,29 +223,22 @@ window.addEventListener('load', function(){
 
             window.addEventListener('scrollend', e => {
                 this.scrolling = false;
-                console.log(e);
             });
         }
 
-        //runs once to init effect & create particle objs
         createParticles(){
             for (let i = 0; i < this.numberOfParticles; i++)
             {
-                this.particles.push(new Particle(this)); //passing this to Particle since construct takes an Effect Obj
+                this.particles.push(new Particle(this));
             }
         }
 
-        //passing context since ea particle needs to know what context to draw on
         handleParticles(context){
-            this.connectParticles(context); //lines drawn first here so that particles sit on top since we are drawing on single canvas
+            this.connectParticles(context);
             this.particles.forEach(particle => {
                 particle.draw(context);
                 particle.update();
             });
-            //debug function shows lines around DOM rect on element
-            if (this.debug){
-                context.strokeRect(this.element1.x, this.element1.y, this.element1.width, this.element1.height);
-            }
         }
 
         connectParticles(context){
