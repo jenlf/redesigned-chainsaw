@@ -1,3 +1,14 @@
+/*
+* TITLE:        Learn Creative Coding: Particle Systems, Particle Effects Masterclass
+* AUTHOR:       Franks laboratory, @Frankslaboratory [YouTube]
+* DATE:         May 3 2023
+* AVAILABILITY: https://www.youtube.com/playlist?list=PLYElE_rzEw_tLmWtIkUfI6Odi38ajFI8R
+*               
+*               The following code was adapted from a masterclass series of videos from Franks Laboratory YouTube channel. 
+*               Visit the channel here: https://www.youtube.com/@Frankslaboratory to view the original source code and 
+*               tutorials. 
+*/ 
+
 window.addEventListener('load', function(){
     const canvas = document.getElementById('canvas1');
     const ctx = canvas.getContext('2d');
@@ -27,15 +38,14 @@ window.addEventListener('load', function(){
             this.height = this.radius * 2;
 
             for (let j = 0; j < effect.elementsArray.length; j++) {
-                if (this.x - this.radius < this.effect.elementsArray[j].element.x + this.effect.elementsArray[j].element.width &&
-                    this.x - this.radius + this.width > this.effect.elementsArray[j].element.x &&
-                    this.y - this.radius < this.effect.elementsArray[j].element.y + this.effect.elementsArray[j].element.height && 
-                    this.height + this.y - this.radius > this.effect.elementsArray[j].element.y){
+                if (this.x - this.radius <= this.effect.elementsArray[j].element.x + this.effect.elementsArray[j].element.width &&
+                    this.x - this.radius + this.width >= this.effect.elementsArray[j].element.x &&
+                    this.y - this.radius <= this.effect.elementsArray[j].element.y + this.effect.elementsArray[j].element.height && 
+                    this.height + this.y - this.radius >= this.effect.elementsArray[j].element.y){
                         //collision detected
                         
                         this.y = this.effect.elementsArray[j].element.y - this.radius;
                         this.x = this.effect.elementsArray[j].element.x - this.radius;
-                        
                     }
                 }
         }
@@ -91,10 +101,10 @@ window.addEventListener('load', function(){
 
             //collision detection again
             for (let j = 0; j < effect.elementsArray.length; j++) {
-                if (this.x - this.radius < this.effect.elementsArray[j].element.x + this.effect.elementsArray[j].element.width &&
-                    this.x - this.radius + this.width > this.effect.elementsArray[j].element.x &&
-                    this.y - this.radius < this.effect.elementsArray[j].element.y + this.effect.elementsArray[j].element.height && 
-                    this.height + this.y - this.radius > this.effect.elementsArray[j].element.y){
+                if (this.x - this.radius <= this.effect.elementsArray[j].element.x + this.effect.elementsArray[j].element.width &&
+                    this.x - this.radius + this.width >= this.effect.elementsArray[j].element.x &&
+                    this.y - this.radius <= this.effect.elementsArray[j].element.y + this.effect.elementsArray[j].element.height && 
+                    this.height + this.y - this.radius >= this.effect.elementsArray[j].element.y){
                         //collision detected
                         this.vy *= -1;
                         this.vx *= -1;
@@ -108,10 +118,10 @@ window.addEventListener('load', function(){
             this.y = this.radius + Math.random() * (this.effect.height - this.radius * 2);
 
             for (let j = 0; j < effect.elementsArray.length; j++) {
-                if (this.x - this.radius < this.effect.elementsArray[j].element.x + this.effect.elementsArray[j].element.width &&
-                    this.x - this.radius + this.width > this.effect.elementsArray[j].element.x &&
-                    this.y - this.radius < this.effect.elementsArray[j].element.y + this.effect.elementsArray[j].element.height && 
-                    this.height + this.y - this.radius > this.effect.elementsArray[j].element.y){
+                if (this.x - this.radius <= this.effect.elementsArray[j].element.x + this.effect.elementsArray[j].element.width &&
+                    this.x - this.radius + this.width >= this.effect.elementsArray[j].element.x &&
+                    this.y - this.radius <= this.effect.elementsArray[j].element.y + this.effect.elementsArray[j].element.height && 
+                    this.height + this.y - this.radius >= this.effect.elementsArray[j].element.y){
                         //collision detected
                         this.y = this.effect.elementsArray[j].element.y - this.radius;
                         this.x = this.effect.elementsArray[j].element.x - this.radius;
@@ -242,38 +252,33 @@ window.addEventListener('load', function(){
         }
 
         connectParticles(context){
-            const maxDistance = 80; //only connecting particles that are 100px apart
-            //compare every particle in array to calc distance between using nested for loops
+            const maxDistance = 80;
+
             for (let a = 0; a < this.particles.length; a++){
                 for (let b = a;b < this.particles.length; b++){
                     //calc distance between two points -- using pythag theorem
                     const dx = this.particles[a].x - this.particles[b].x;
                     const dy = this.particles[a].y - this.particles[b].y;
-                    const distance = Math.hypot(dx, dy); //gives hypotenuse
+                    const distance = Math.hypot(dx, dy);
                     if (distance < maxDistance){
-                        context.save(); //saves all canvas settings prior to next line execution, needed since we set globalAlpha
-                        //setting line opacity to fade out as paricles move apart
-                        // 1 - the ratio flips it so the opacity is darker as the particles are closer
+                        context.save();
                         const opacity = 1 - (distance/maxDistance);
-                        context.globalAlpha = opacity; //sets the opacity globally to all shapes so need to save & restore
+                        context.globalAlpha = opacity;
                         context.beginPath();
                         context.moveTo(this.particles[a].x, this.particles[a].y);
                         context.lineTo(this.particles[b].x, this.particles[b].y);
-                        //actually draw it
                         context.stroke();
-                        context.restore(); //restores saved canvas settings from above
+                        context.restore();
                     }
                 }
             }
         }
 
-        //make the canvas responsive to window size changes, context passed because particles must also be redrawn ea time
         resize(width, height){
             this.canvas.width = width;
             this.canvas.height = height;
             this.width = width;
             this.height = height;
-            //this first html element on the page to collide with
             this.elementsArray[0].element = document.getElementById('navbar').getBoundingClientRect();
             this.elementsArray[1].element = document.getElementById('headline').getBoundingClientRect();
             this.elementsArray[2].element = document.getElementById('topfold-text').getBoundingClientRect();
@@ -283,13 +288,12 @@ window.addEventListener('load', function(){
             this.elementsArray[6].element = document.getElementById('headline-thanks').getBoundingClientRect();
             this.elementsArray[7].element = document.getElementById('footer-text').getBoundingClientRect();
             this.elementsArray[8].element = document.getElementById('social').getBoundingClientRect();
-            //recalc gradient for particles - upper eft to ower right AFTER window resize
             const gradient = this.context.createLinearGradient(0,0,width,height);
-            gradient.addColorStop(0, 'black'); //adding gradient points
+            gradient.addColorStop(0, 'black');
             gradient.addColorStop(0.5, 'black');
             gradient.addColorStop(1, 'grey');
             this.context.fillStyle = gradient; 
-            this.context.strokeStyle = 'black'; //set stroke for line connection since default is black
+            this.context.strokeStyle = 'black';
 
             //reset the particles 
             this.particles.forEach(particle => {
@@ -298,7 +302,7 @@ window.addEventListener('load', function(){
         }
     }
 
-    const effect = new Effect(canvas, ctx); //keeps the classes contained by passing in the canvas
+    const effect = new Effect(canvas, ctx);
 
     //animate, update & redraw
     function animate(){
@@ -323,6 +327,5 @@ window.addEventListener('load', function(){
     });
 
     const hiddenSections = document.querySelectorAll('.scroll-section');
-    //tell the observer what to observe
     hiddenSections.forEach((el) => observer.observe(el));
 }); 
