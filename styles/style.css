@@ -14,6 +14,7 @@ body {
     padding: 0; */
     background-color: white;
     font-family: 'Open Sans', sans-serif;
+    font-size: 2minvw;
     
     /* Full height */
     height: 100%; 
@@ -32,7 +33,7 @@ body {
     height: 100%;
     top: 0;
     left: 0;
-    z-index: -1;
+    z-index: -1; 
 }
 
 section { 
@@ -42,7 +43,7 @@ section {
 }
 
 h1 {
-    font-size: 40px;
+    font-size: 3vw;
     animation: fadeIn 5s;
     width: 60%;
     -webkit-animation: fadeIn 5s;
@@ -51,15 +52,24 @@ h1 {
     -ms-animation: fadeIn 5s;
   }
 
-  ul {
+ul {
     list-style-type: none;
     padding-left: 30px;
-  }
-  
+}
+
+li a {
+    color:black;
+    text-decoration: none;
+}
+
+li a:hover {
+    color: white;
+}
+
 .wrapper {
     display: flex;
     flex-direction: column;
-    position: absolute;
+    /* position: absolute; */
     margin: 0;
     padding: 0;
     min-height: 100%;
@@ -82,11 +92,6 @@ h1 {
 	  opacity: 1;
 }
 
-@media(prefers-reduced-motion){
-     .scroll-section{
-      transition: none;
-    }
-}
 
 .social-tiles {
 	  display: flex;
@@ -100,11 +105,6 @@ h1 {
 .logo {
     width: 198px;
     height: 114px;
-    animation: fadeIn 5s;
-    -webkit-animation: fadeIn 5s;
-    -moz-animation: fadeIn 5s;
-    -o-animation: fadeIn 5s;
-    -ms-animation: fadeIn 5s;
 }
 
 #navbar {
@@ -114,10 +114,16 @@ h1 {
     top: 0;
     left: 0;
     width: 198px;
+    z-index: 1;
+    animation: fadeIn 5s;
+    -webkit-animation: fadeIn 5s;
+    -moz-animation: fadeIn 5s;
+    -o-animation: fadeIn 5s;
+    -ms-animation: fadeIn 5s;
 }
 
 #headline {
-	margin-top: 150px;
+	margin-top: 250px;
 }
 
 #git {
@@ -168,3 +174,30 @@ h1 {
     100% { opacity: 1; }
 }
 
+@media(prefers-reduced-motion){
+    .scroll-section{
+     transition: none;
+   }
+}
+
+@media only screen and (max-width: 800px) {
+   h1 {font-size: 5vw;}
+   body {font-size: 3vw;}
+   #headline {
+	margin-top: 150px;
+}
+   #navbar {
+       display: flex;
+       flex-direction: column;
+       position: relative;
+       top: 0;
+       left: 0;
+       width: 198px;
+       z-index: 1;
+       animation: fadeIn 5s;
+       -webkit-animation: fadeIn 5s;
+       -moz-animation: fadeIn 5s;
+       -o-animation: fadeIn 5s;
+       -ms-animation: fadeIn 5s;
+   }
+}
