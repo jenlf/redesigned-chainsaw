@@ -34,10 +34,10 @@ window.addEventListener('load', function(){
             //this.isCollided = [false, false, false, false, false, false, false, false];
 
             for (let j = 0; j < effect.elementsArray.length; j++) {
-                if (this.x - this.radius <= this.effect.elementsArray[j].element.x + this.effect.elementsArray[j].element.width &&
-                    this.x - this.radius + this.width >= this.effect.elementsArray[j].element.x &&
-                    this.y - this.radius <= this.effect.elementsArray[j].element.y + this.effect.elementsArray[j].element.height && 
-                    this.height + this.y - this.radius >= this.effect.elementsArray[j].element.y){
+                if (this.x - this.radius < this.effect.elementsArray[j].element.x + this.effect.elementsArray[j].element.width &&
+                    this.x - this.radius + this.width > this.effect.elementsArray[j].element.x &&
+                    this.y - this.radius < this.effect.elementsArray[j].element.y + this.effect.elementsArray[j].element.height && 
+                    this.height + this.y - this.radius > this.effect.elementsArray[j].element.y){
                         //collision detected
                         
                         this.y = this.effect.elementsArray[j].element.y - this.radius;
@@ -111,10 +111,10 @@ window.addEventListener('load', function(){
 
             //collision detection -- use the element properties not obj properties for initial detection
             for (let j = 0; j < effect.elementsArray.length; j++) {
-                if (this.x - this.radius <= this.effect.elementsArray[j].element.x + this.effect.elementsArray[j].element.width &&
-                    this.x - this.radius + this.width >= this.effect.elementsArray[j].element.x &&
-                    this.y - this.radius <= this.effect.elementsArray[j].element.y + this.effect.elementsArray[j].element.height && 
-                    this.height + this.y - this.radius >= this.effect.elementsArray[j].element.y){
+                if (this.x - this.radius < this.effect.elementsArray[j].element.x + this.effect.elementsArray[j].element.width &&
+                    this.x - this.radius + this.width > this.effect.elementsArray[j].element.x &&
+                    this.y - this.radius < this.effect.elementsArray[j].element.y + this.effect.elementsArray[j].element.height && 
+                    this.height + this.y - this.radius > this.effect.elementsArray[j].element.y){
                         //collision detected
                         this.vy *= -1;
                         this.vx *= -1;
@@ -130,10 +130,10 @@ window.addEventListener('load', function(){
             this.y = this.radius + Math.random() * (this.effect.height - this.radius * 2);
             //checks for collision on page resize and resets the particles if they are under and element
             for (let j = 0; j < effect.elementsArray.length; j++) {
-                if (this.x - this.radius <= this.effect.elementsArray[j].element.x + this.effect.elementsArray[j].element.width &&
-                    this.x - this.radius + this.width >= this.effect.elementsArray[j].element.x &&
-                    this.y - this.radius <= this.effect.elementsArray[j].element.y + this.effect.elementsArray[j].element.height && 
-                    this.height + this.y - this.radius >= this.effect.elementsArray[j].element.y){
+                if (this.x - this.radius < this.effect.elementsArray[j].element.x + this.effect.elementsArray[j].element.width &&
+                    this.x - this.radius + this.width > this.effect.elementsArray[j].element.x &&
+                    this.y - this.radius < this.effect.elementsArray[j].element.y + this.effect.elementsArray[j].element.height && 
+                    this.height + this.y - this.radius > this.effect.elementsArray[j].element.y){
                         //collision detected
                         this.y = this.effect.elementsArray[j].element.y - this.radius;
                         this.x = this.effect.elementsArray[j].element.x - this.radius;
@@ -210,9 +210,15 @@ window.addEventListener('load', function(){
                     radius: 200,
                 }
             ];
-            console.log(this.elementsArray);
+            //console.log(this.elementsArray);
             this.particles = [];
-            this.numberOfParticles = 100;
+            if(canvas.width < 800){
+                this.numberOfParticles = 20;
+
+            } else {
+                this.numberOfParticles = 50;
+            }
+            
             this.createParticles(); //creates the particles when Effect is instantiated
 
             window.addEventListener('keydown', e => {
@@ -247,6 +253,7 @@ window.addEventListener('load', function(){
 
             window.addEventListener('scrollend', e => {
                 this.scrolling = false;
+                console.log(e);
             });
         }
 
