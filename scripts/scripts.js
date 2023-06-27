@@ -31,13 +31,13 @@ window.addEventListener('load', function(){
             this.friction = 0.95; //this is an opposing force that will slow down the push
             this.width = this.radius * 2;
             this.height = this.radius * 2;
-            this.isCollided = [false, false, false, false, false, false, false, false];
+            //this.isCollided = [false, false, false, false, false, false, false, false];
 
             for (let j = 0; j < effect.elementsArray.length; j++) {
-                if (this.x - this.radius < this.effect.elementsArray[j].element.x + this.effect.elementsArray[j].element.width &&
-                    this.x - this.radius + this.width > this.effect.elementsArray[j].element.x &&
-                    this.y - this.radius < this.effect.elementsArray[j].element.y + this.effect.elementsArray[j].element.height && 
-                    this.height + this.y - this.radius > this.effect.elementsArray[j].element.y){
+                if (this.x - this.radius <= this.effect.elementsArray[j].element.x + this.effect.elementsArray[j].element.width &&
+                    this.x - this.radius + this.width >= this.effect.elementsArray[j].element.x &&
+                    this.y - this.radius <= this.effect.elementsArray[j].element.y + this.effect.elementsArray[j].element.height && 
+                    this.height + this.y - this.radius >= this.effect.elementsArray[j].element.y){
                         //collision detected
                         
                         this.y = this.effect.elementsArray[j].element.y - this.radius;
@@ -45,9 +45,15 @@ window.addEventListener('load', function(){
                         
                     }
                 }
+                //console.log(this.effect.elementsArray[0].element);
         }
 
         draw(context){
+            if (this.x - this.radius === 0 && this.y - this.radius === 0){
+                this.x = this.radius + Math.random() * (this.effect.width - this.radius * 2);
+                this.y = this.radius + Math.random() * (this.effect.height - this.radius * 2);
+                return;
+            }
             context.beginPath();
             context.arc(this.x, this.y, this.radius, 0, Math.PI * 2); //make a circle
             //need to fill or outline w stroke
