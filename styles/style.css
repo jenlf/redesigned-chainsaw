@@ -50,6 +50,11 @@ h1 {
     -o-animation: fadeIn 5s;
     -ms-animation: fadeIn 5s;
   }
+
+  ul {
+    list-style-type: none;
+    padding-left: 30px;
+  }
   
 .wrapper {
     display: flex;
@@ -95,13 +100,20 @@ h1 {
 .logo {
     width: 198px;
     height: 114px;
-    top: 0;
-    left: 0;
     animation: fadeIn 5s;
     -webkit-animation: fadeIn 5s;
     -moz-animation: fadeIn 5s;
     -o-animation: fadeIn 5s;
     -ms-animation: fadeIn 5s;
+}
+
+#navbar {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 198px;
 }
 
 #headline {

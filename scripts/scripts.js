@@ -150,7 +150,7 @@ window.addEventListener('load', function(){
 
             this.elementsArray = [
                 {
-                    element: document.getElementById('logo').getBoundingClientRect(),
+                    element: document.getElementById('navbar').getBoundingClientRect(),
                     x: 0,
                     y: 0,
                     radius: 200,
@@ -222,7 +222,7 @@ window.addEventListener('load', function(){
             });
 
             window.addEventListener('scroll', e => {
-                this.elementsArray[0].element = document.getElementById('logo').getBoundingClientRect();
+                this.elementsArray[0].element = document.getElementById('navbar').getBoundingClientRect();
                 this.elementsArray[1].element = document.getElementById('headline').getBoundingClientRect();
                 this.elementsArray[2].element = document.getElementById('topfold-text').getBoundingClientRect();
                 this.elementsArray[3].element = document.getElementById('headline-me').getBoundingClientRect();
@@ -298,7 +298,7 @@ window.addEventListener('load', function(){
             this.width = width;
             this.height = height;
             //this first html element on the page to collide with
-            this.elementsArray[0].element = document.getElementById('logo').getBoundingClientRect();
+            this.elementsArray[0].element = document.getElementById('navbar').getBoundingClientRect();
             this.elementsArray[1].element = document.getElementById('headline').getBoundingClientRect();
             this.elementsArray[2].element = document.getElementById('topfold-text').getBoundingClientRect();
             this.elementsArray[3].element = document.getElementById('headline-me').getBoundingClientRect();
