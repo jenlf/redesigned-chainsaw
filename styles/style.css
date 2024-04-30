@@ -157,6 +157,30 @@ li a:hover {
     align-items: center;
 }
 
+.retro-subtitle2 {
+    font-weight: bold;
+    font-style: italic;
+}
+
+.retro-subtitle {
+    font-weight: bolder;
+    font-size: 2vmin;
+}
+
+.retro-img {
+    height: auto;
+    width: 500px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.retro-img-sm {
+    height: auto;
+    width: 300px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
 @keyframes fadeIn {
     0% { opacity: 0;}
     100% { opacity: 1;}
